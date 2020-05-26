@@ -1,0 +1,35 @@
+.login-container {
+  text-align: center;
+}
+
+.login-content {
+  background: #fff;
+  border-radius: 2px;
+  width: 500px;
+  display: inline-block;
+  margin-top: 30px;
+  vertical-align: middle;
+  position: relative;
+  padding: 35px;
+}
+
+.social-btn {
+  margin-bottom: 15px;
+  font-weight: 400;
+  font-size: 16px;
+  width: 300px;
+  text-align: center;
+}
+
+.social-btn__img {
+  height: 30px;
+  margin-top: 10px;
+}
+
+.login-title {
+  font-size: 1.5em;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 30px;
+  color: rgba(0, 0, 0, 0.65);
+}
