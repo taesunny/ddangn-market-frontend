@@ -49,7 +49,7 @@ function ProductListItem({
         />
         <span className="w3-large" style={titleStyle}>
           <h1 className="w3-hide-small">
-            {name.slice(0, 30)}
+            {name.slice(0, 14)}
             {name.length > 14 ? "..." : ""}
           </h1>
         </span>
