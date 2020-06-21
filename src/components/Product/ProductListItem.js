@@ -39,15 +39,6 @@ function ProductListItem({
   };
 
   return (
-    // <div className="product-list-item">
-    //   <img src={productImg.path} alt={name} title={name} />
-    //   <div className="product-list-item__data">
-    //     <h3 className="product-list-item__name">???</h3>
-    //     <h5 className="product-list-item__category">{category}</h5>
-    //     <h5 className="product-list-item__price">{price}원</h5>
-    //     <p className="product-list-item__description">{description.slice(0, 10)}...</p>
-    //   </div>
-    // </div>
     <Link to={`/products/${id}`}>
       <li style={contentStyle}>
         <img

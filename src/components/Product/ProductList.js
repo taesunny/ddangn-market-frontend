@@ -12,7 +12,6 @@ class ProductList extends React.Component {
   };
 
   getProducts = async () => {
-    // TODO: add try catch
     const { data: products } = await axios.get(
       `${API_BASE_URL}/api/v1/products`
     );
@@ -41,25 +40,27 @@ class ProductList extends React.Component {
                 <Loading></Loading>
               </div>
             ) : (
-              // <!-- !PAGE CONTENT! -->
               <div>
-                {productList.length === 0 ? "No Contents" : ""}
-                <ul className="w3-ul w3-hoverable">
-                  {productList.map((product) => (
-                    <ProductListItem
-                      key={product.id}
-                      id={product.id}
-                      name={product.title}
-                      img={product.imageFilePath}
-                      region={product.region}
-                      category={product.category}
-                      price={product.price}
-                      description={product.content}
-                      status={product.status}
-                      createdTime={product.createdTime}
-                    />
-                  ))}
-                </ul>
+                {productList.length === 0 ? (
+                  "No Contents"
+                ) : (
+                  <ul className="w3-ul w3-hoverable">
+                    {productList.map((product) => (
+                      <ProductListItem
+                        key={product.id}
+                        id={product.id}
+                        name={product.title}
+                        img={product.imageFilePath}
+                        region={product.region}
+                        category={product.category}
+                        price={product.price}
+                        description={product.content}
+                        status={product.status}
+                        createdTime={product.createdTime}
+                      />
+                    ))}
+                  </ul>
+                )}
               </div>
             )}
           </section>
