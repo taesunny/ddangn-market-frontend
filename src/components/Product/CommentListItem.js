@@ -4,6 +4,7 @@ import Alert from "react-s-alert";
 import { getDefaultAxiosJsonConfig } from "../../utils/APIUtils";
 import Axios from "axios";
 import { API_BASE_URL } from "../../Const";
+import keycloak from "../../keyclock";
 
 class CommentListItem extends Component {
   deleteProductComments = async (commentId) => {
@@ -40,7 +41,6 @@ class CommentListItem extends Component {
     const {
       userEmail,
       createdTime,
-      currentUserId,
       userId,
       content,
       id,
@@ -57,7 +57,9 @@ class CommentListItem extends Component {
           <button
             type="submit"
             className="w3-button w3-black w3-margin-left"
-            disabled={currentUserId === userId ? false : true}
+            disabled={keycloak.authenticated &&
+              keycloak.userInfo &&
+              keycloak.subject === userId ? false : true}
             onClick={() => this.deleteProductComments(id)}
           >
             <i className="fa fa-paper-plane w3-margin-center"></i>삭제

@@ -4,6 +4,7 @@ import ProductListItem from "./ProductListItem";
 import Header from "../../layout/Header";
 import Loading from "../../layout/Loading";
 import { API_BASE_URL } from "../../Const";
+import keycloak from "../../keyclock";
 
 class ProductList extends React.Component {
   state = {
@@ -16,13 +17,15 @@ class ProductList extends React.Component {
       `${API_BASE_URL}/api/v1/products`
     );
 
-    console.log("return: ", products);
+    // console.log("return: ", products);
     // console.log(products);
     this.setState({ productList: products, isLoading: false });
   };
 
   componentDidMount() {
     this.getProducts();
+
+    console.log("Lnb : ", keycloak);
   }
 
   render() {

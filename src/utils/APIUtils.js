@@ -1,4 +1,5 @@
 import { ACCESS_TOKEN, API_BASE_URL } from "../Const";
+import keycloak from "../keyclock";
 
 const request = (options) => {
   const headers = new Headers({
@@ -8,7 +9,8 @@ const request = (options) => {
   if (localStorage.getItem(ACCESS_TOKEN)) {
     headers.append(
       "Authorization",
-      "Bearer " + localStorage.getItem(ACCESS_TOKEN)
+      // "Bearer " + localStorage.getItem(ACCESS_TOKEN)
+      "Bearer " + keycloak.token
     );
   }
 
@@ -33,11 +35,10 @@ export function getDefaultAxiosJsonConfig() {
   };
 
   if (localStorage.getItem(ACCESS_TOKEN)) {
-    config.headers["Authorization"] =
-      "Bearer " + localStorage.getItem(ACCESS_TOKEN);
+    config.headers["Authorization"] = "Bearer " + keycloak.token;
   }
 
-  return config
+  return config;
 }
 
 export function getDefaultAxiosFormDataConfig() {
@@ -48,36 +49,35 @@ export function getDefaultAxiosFormDataConfig() {
   };
 
   if (localStorage.getItem(ACCESS_TOKEN)) {
-    config.headers["Authorization"] =
-      "Bearer " + localStorage.getItem(ACCESS_TOKEN);
+    config.headers["Authorization"] = "Bearer " + keycloak.token;
   }
 
-  return config
+  return config;
 }
 
-export function getCurrentUser() {
-  if (!localStorage.getItem(ACCESS_TOKEN)) {
-    return Promise.reject("No access token set.");
-  }
+// export function getCurrentUser() {
+//   if (!localStorage.getItem(ACCESS_TOKEN)) {
+//     return Promise.reject("No access token set.");
+//   }
 
-  return request({
-    url: API_BASE_URL + "/user/me",
-    method: "GET",
-  });
-}
+//   return request({
+//     url: API_BASE_URL + "/user/me",
+//     method: "GET",
+//   });
+// }
 
-export function login(loginRequest) {
-  return request({
-    url: API_BASE_URL + "/auth/login",
-    method: "POST",
-    body: JSON.stringify(loginRequest),
-  });
-}
+// export function login(loginRequest) {
+//   return request({
+//     url: API_BASE_URL + "/auth/login",
+//     method: "POST",
+//     body: JSON.stringify(loginRequest),
+//   });
+// }
 
-export function signup(signupRequest) {
-  return request({
-    url: API_BASE_URL + "/auth/signup",
-    method: "POST",
-    body: JSON.stringify(signupRequest),
-  });
-}
+// export function signup(signupRequest) {
+//   return request({
+//     url: API_BASE_URL + "/auth/signup",
+//     method: "POST",
+//     body: JSON.stringify(signupRequest),
+//   });
+// }

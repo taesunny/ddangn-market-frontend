@@ -4,6 +4,14 @@ import { handleLogOut, handleLogIn } from "../utils/CloakUtils";
 import keycloak from "../keyclock";
 
 class Lnb extends Component {
+
+  componentDidMount() {
+    // keycloak.loadUserProfile()
+    // keycloak.authenticated && keycloak.loadUserInfo();
+
+    // console.log("Lnb : ", keycloak);
+  }
+
   render() {
     const lnbStyle = {
       zIndex: 3,
@@ -17,12 +25,6 @@ class Lnb extends Component {
     const logoStyle = {
       width: "200px",
     };
-
-    console.log("lnb cloak: ", keycloak);
-    console.log(
-      "lnb cloak user info: ",
-      keycloak.authenticated && keycloak.loadUserInfo()
-    );
 
     return (
       <nav
@@ -80,8 +82,6 @@ class Lnb extends Component {
             </div>
           )}
         </div>
-
-        {keycloak.authenticated ? <p>test Logged in</p> : <p></p>}
         <a
           href="https://github.com/taesunny"
           className="w3-bar-item w3-button w3-padding"

@@ -28,8 +28,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      authenticated: false,
       loading: false,
+      userEmail: "",
     };
   }
 
@@ -68,44 +68,45 @@ class App extends Component {
     };
 
     return (
-        <div className="w3-content" style={backgroundStyle}>
-          <Router>
-            <div>
-              <Alert stack={{ limit: 6 }} timeout={120000} />
-              {/* <Header /> */}
-              <Lnb
-                // authenticated={keycloak.authenticated}
-                // currentUser={getUsername(keycloak)}
-                // keycloak={keycloak}
-              />
-              <div style={contentStyle}>
-                <Switch>
-                  <Route path="/" exact component={Home} />
-                  <Route path="/list" exact component={ProductList} />
-                  <Route
-                    path="/products/:id"
-                    render={(props) => (
-                      <ProductDetail
-                        // authenticated={keycloak.authenticated}
-                        // currentUser={getUsername(keycloak)}
-                        // keycloak={keycloak}
-                        {...props}
-                      />
-                    )}
-                  ></Route>
-                  <Route
-                    path="/register"
-                    render={(props) => (
-                      <ProductRegistration
-                        // authenticated={keycloak.authenticated}
-                        // currentUser={getUsername(keycloak)}
-                        // keycloak={keycloak}
-                        {...props}
-                      />
-                    )}
-                  ></Route>
-                  <Route path="/about" component={About} />
-                  {/* <Route
+      <div className="w3-content" style={backgroundStyle}>
+        <Router>
+          <div>
+            <Alert stack={{ limit: 6 }} timeout={120000} />
+            {/* <Header /> */}
+            <Lnb
+              // authenticated={keycloak.authenticated}
+              // userEmail={keycloak.authenticated ? this.userEmail : ""}
+              // currentUser={getUsername(keycloak)}
+              // keycloak={keycloak}
+            />
+            <div style={contentStyle}>
+              <Switch>
+                <Route path="/" exact component={Home} />
+                <Route path="/list" exact component={ProductList} />
+                <Route
+                  path="/products/:id"
+                  render={(props) => (
+                    <ProductDetail
+                      // authenticated={keycloak.authenticated}
+                      // currentUser={getUsername(keycloak)}
+                      // keycloak={keycloak}
+                      {...props}
+                    />
+                  )}
+                ></Route>
+                <Route
+                  path="/register"
+                  render={(props) => (
+                    <ProductRegistration
+                      // authenticated={keycloak.authenticated}
+                      // currentUser={getUsername(keycloak)}
+                      // keycloak={keycloak}
+                      {...props}
+                    />
+                  )}
+                ></Route>
+                <Route path="/about" component={About} />
+                {/* <Route
                     path="/login"
                     render={(props) => (
                       <UserLogin
@@ -127,22 +128,22 @@ class App extends Component {
                       />
                     )}
                   ></Route> */}
-                  {/* <PrivateRoute
+                {/* <PrivateRoute
                     path="/profile"
                     authenticated={keycloak.authenticated}
                     currentUser={this.state.currentUser}
                     component={Profile}
                   ></PrivateRoute> */}
-                  {/* <Route
+                {/* <Route
                     path="/oauth2/redirect"
                     component={OAuth2RedirectHandler}
                   ></Route> */}
-                  {/* <Route path="/accounts/google/login" component={UserLogin} /> */}
-                </Switch>
-              </div>
+                {/* <Route path="/accounts/google/login" component={UserLogin} /> */}
+              </Switch>
             </div>
-          </Router>
-        </div>
+          </div>
+        </Router>
+      </div>
     );
   }
 }

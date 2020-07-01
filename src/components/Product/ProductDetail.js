@@ -9,6 +9,7 @@ import { getDefaultAxiosJsonConfig } from "../../utils/APIUtils";
 import CommentListItem from "./CommentListItem";
 import Axios from "axios";
 import { API_BASE_URL } from "../../Const";
+import keycloak from "../../keyclock";
 
 class ProductDetail extends Component {
   constructor(props) {
@@ -217,8 +218,9 @@ class ProductDetail extends Component {
               style={buttonStyle}
               onClick={() => this.updateProductToSoldOut()}
               disabled={
-                this.props.currentUser &&
-                this.props.currentUser.id === product.userId
+                keycloak.authenticated &&
+                keycloak.userInfo &&
+                keycloak.subject === product.userId
                   ? false
                   : true
               }
@@ -239,8 +241,9 @@ class ProductDetail extends Component {
             className="w3-button w3-dark-grey w3-padding-large w3-margin-top w3-margin-bottom"
             onClick={() => this.deleteProduct()}
             disabled={
-              this.props.currentUser &&
-              this.props.currentUser.id === product.userId
+              keycloak.authenticated &&
+              keycloak.userInfo &&
+              keycloak.subject === product.userId
                 ? false
                 : true
             }
@@ -269,6 +272,7 @@ class ProductDetail extends Component {
                 <h5>Category: {product.category}</h5>
                 <h5>Region: {product.region}</h5>
                 <p align="right">
+                  <b>{product.userEmail} </b> 님이 의해{" "}
                   <Moment fromNow ago>
                     {product.createdTime}
                   </Moment>{" "}
@@ -325,9 +329,6 @@ class ProductDetail extends Component {
                   userId={comment.userId}
                   content={comment.content}
                   createdTime={comment.createdTime}
-                  currentUserId={
-                    this.props.currentUser ? this.props.currentUser.id : -1
-                  }
                   reloadComments={this.reloadCommentsCallback}
                 />
               ))}
