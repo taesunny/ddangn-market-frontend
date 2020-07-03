@@ -1,7 +1,17 @@
 import React, { Component } from "react";
 import ddangnMarketLogo from "../img/ddangn-market-logo1.jpeg";
+import { handleLogOut, handleLogIn } from "../utils/CloakUtils";
+import keycloak from "../keyclock";
 
 class Lnb extends Component {
+
+  componentDidMount() {
+    // keycloak.loadUserProfile()
+    // keycloak.authenticated && keycloak.loadUserInfo();
+
+    // console.log("Lnb : ", keycloak);
+  }
+
   render() {
     const lnbStyle = {
       zIndex: 3,
@@ -40,35 +50,38 @@ class Lnb extends Component {
           <a href="/list" className="w3-bar-item w3-button">
             Product List
           </a>
-          {this.props.authenticated ? (
-            <a href="/register" class="w3-bar-item w3-button">
+          {keycloak.authenticated ? (
+            <a href="/register" className="w3-bar-item w3-button">
               Register product
             </a>
           ) : (
             <div>
-              <a href="/login" className="w3-bar-item w3-button">
+              <a
+                onClick={() => keycloak.login()}
+                className="w3-bar-item w3-button"
+              >
                 Register product
               </a>
             </div>
           )}
-          {this.props.authenticated ? (
-            <a onClick={this.props.onLogout} className="w3-bar-item w3-button">
+          {keycloak.authenticated ? (
+            <a
+              onClick={() => keycloak.logout()}
+              className="w3-bar-item w3-button"
+            >
               Logout
             </a>
           ) : (
             <div>
-              <a href="/login" className="w3-bar-item w3-button">
+              <a
+                onClick={() => keycloak.login()}
+                className="w3-bar-item w3-button"
+              >
                 Login / Signup
               </a>
             </div>
           )}
         </div>
-
-        {this.props.authenticated ? (
-          <p>{this.props.currentUser.name} Logged in</p>
-        ) : (
-          <p></p>
-        )}
         <a
           href="https://github.com/taesunny"
           className="w3-bar-item w3-button w3-padding"
