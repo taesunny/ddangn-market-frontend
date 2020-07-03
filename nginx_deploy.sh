@@ -11,7 +11,7 @@ echo "> Build React App"
 npm run build
 
 echo "> Dockerfile Build"
-docker build -t nginx-react:$IMAGE_VERSION
+docker build -t nginx-react:$IMAGE_VERSION .
 
 echo "> Run docker"
 docker run -d --name my-react-app -p 80:80 nginx-react:$IMAGE_VERSION
