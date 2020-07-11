@@ -23,6 +23,7 @@ import PrivateRoute from "./PrivateRoute";
 import { getUsername } from "../utils/CloakUtils";
 import { KeycloakProvider } from "@react-keycloak/web";
 import keycloak from "../keyclock";
+import AppPushRegistration from "./Notification/AppPushRegistration";
 
 class App extends Component {
   constructor(props) {
@@ -74,10 +75,10 @@ class App extends Component {
             <Alert stack={{ limit: 6 }} timeout={120000} />
             {/* <Header /> */}
             <Lnb
-              // authenticated={keycloak.authenticated}
-              // userEmail={keycloak.authenticated ? this.userEmail : ""}
-              // currentUser={getUsername(keycloak)}
-              // keycloak={keycloak}
+            // authenticated={keycloak.authenticated}
+            // userEmail={keycloak.authenticated ? this.userEmail : ""}
+            // currentUser={getUsername(keycloak)}
+            // keycloak={keycloak}
             />
             <div style={contentStyle}>
               <Switch>
@@ -98,6 +99,17 @@ class App extends Component {
                   path="/register"
                   render={(props) => (
                     <ProductRegistration
+                      // authenticated={keycloak.authenticated}
+                      // currentUser={getUsername(keycloak)}
+                      // keycloak={keycloak}
+                      {...props}
+                    />
+                  )}
+                ></Route>
+                <Route
+                  path="/register-app-push"
+                  render={(props) => (
+                    <AppPushRegistration
                       // authenticated={keycloak.authenticated}
                       // currentUser={getUsername(keycloak)}
                       // keycloak={keycloak}
