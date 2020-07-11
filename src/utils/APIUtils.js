@@ -34,8 +34,6 @@ export function getDefaultAxiosJsonConfig() {
     },
   };
 
-  console.log("check localStorage.getItem(ACCESS_TOKEN) : ", localStorage.getItem(ACCESS_TOKEN))
-
   // if (localStorage.getItem(ACCESS_TOKEN)) {
   if (keycloak && keycloak.token) {
     config.headers["Authorization"] = "Bearer " + keycloak.token;
