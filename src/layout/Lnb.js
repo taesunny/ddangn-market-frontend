@@ -4,12 +4,11 @@ import { handleLogOut, handleLogIn } from "../utils/CloakUtils";
 import keycloak from "../keyclock";
 
 class Lnb extends Component {
-
   componentDidMount() {
     // keycloak.loadUserProfile()
     // keycloak.authenticated && keycloak.loadUserInfo();
-
-    // console.log("Lnb : ", keycloak);
+    // console.log("hasRole? : ", keycloak.hasRealmRole("admin"));
+    console.log("keycloak : ", keycloak);
   }
 
   render() {
@@ -63,6 +62,13 @@ class Lnb extends Component {
                 Register product
               </a>
             </div>
+          )}
+          {keycloak.authenticated && keycloak.hasRealmRole("admin") ? (
+            <a href="/register-app-push" className="w3-bar-item w3-button">
+              Register App Push
+            </a>
+          ) : (
+            <div></div>
           )}
           {keycloak.authenticated ? (
             <a

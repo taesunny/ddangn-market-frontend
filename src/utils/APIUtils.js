@@ -34,7 +34,10 @@ export function getDefaultAxiosJsonConfig() {
     },
   };
 
-  if (localStorage.getItem(ACCESS_TOKEN)) {
+  console.log("check localStorage.getItem(ACCESS_TOKEN) : ", localStorage.getItem(ACCESS_TOKEN))
+
+  // if (localStorage.getItem(ACCESS_TOKEN)) {
+  if (keycloak && keycloak.token) {
     config.headers["Authorization"] = "Bearer " + keycloak.token;
   }
 
@@ -48,7 +51,8 @@ export function getDefaultAxiosFormDataConfig() {
     },
   };
 
-  if (localStorage.getItem(ACCESS_TOKEN)) {
+  // if (localStorage.getItem(ACCESS_TOKEN)) {
+  if (keycloak && keycloak.token) {
     config.headers["Authorization"] = "Bearer " + keycloak.token;
   }
 

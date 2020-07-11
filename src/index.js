@@ -24,7 +24,7 @@ keycloak
     } else {
       console.info("Authenticated");
     }
-    keycloak.loadUserInfo();
+    keycloak.authenticated && keycloak.loadUserInfo();
     //React Render on authentication
     ReactDOM.render(<App />, document.getElementById("root"));
 
