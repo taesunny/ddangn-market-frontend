@@ -1,13 +1,21 @@
 # Ddangn-market - React Web UI Application
+
+<img src="https://miro.medium.com/max/700/1*InTRJNvyco3ZAjYdiKYmzw.jpeg" width="150">
+
+- This app is for study React and MSA.
 - Visit ddangn.taesunny.com
 
-## What is this app
+## Using this app
+- Sign Up/In
+- Get Product/Comment List, Detail Info
+- Register notification pushing mobile application, by log in account having 'Admin' ROLE
 
-- React application for study
-- You can register products and comments
-- Using Spring boot app Provides Products, Comments CRUD APIs - https://github.com/taesunny/ddangn-market
-- You can login with Socail accounts (Google, Github)
+## How to build this app
+##### Run command below
+```
+npm run build
+```
 
 ## Contacts
 
-- Taesun Lee - superbsun@gmail.com
+Taesun Lee - superbsun@gmail.com
