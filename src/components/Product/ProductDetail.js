@@ -261,7 +261,7 @@ class ProductDetail extends Component {
               // <!-- !PAGE CONTENT! -->
               <div className="w3-container w3-padding-large">
                 <img
-                  src={product.imageFilePath}
+                  src={`${API_BASE_URL}/api/v1/products/${this.state.product.id}/image`}
                   className="w3-image"
                   style={imgStyle}
                   alt="product"

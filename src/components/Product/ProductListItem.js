@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
+import { API_BASE_URL } from "../../Const";
 
 function ProductListItem({
   id,
@@ -42,7 +43,7 @@ function ProductListItem({
     <Link to={`/products/${id}`}>
       <li style={contentStyle}>
         <img
-          src={img}
+          src={`${API_BASE_URL}/api/v1/products/${id}/image`}
           className="w3-left w3-margin-right"
           style={imgStyle}
           alt="product"
