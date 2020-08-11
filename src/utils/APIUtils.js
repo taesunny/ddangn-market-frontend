@@ -57,6 +57,18 @@ export function getDefaultAxiosFormDataConfig() {
   return config;
 }
 
+export function getDefaultHeaderWithAuthorization() {
+  const headers = {
+  };
+
+  // if (localStorage.getItem(ACCESS_TOKEN)) {
+  if (keycloak && keycloak.token) {
+    headers["Authorization"] = "Bearer " + keycloak.token;
+  }
+
+  return headers;
+}
+
 // export function getCurrentUser() {
 //   if (!localStorage.getItem(ACCESS_TOKEN)) {
 //     return Promise.reject("No access token set.");

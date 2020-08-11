@@ -6,6 +6,7 @@ import Lnb from "../layout/Lnb";
 import ProductRegistration from "./Product/ProductRegistration";
 import ProductDetail from "./Product/ProductDetail";
 import ProductList from "./Product/ProductList";
+import ProductChatting from "./Product/ProductChatting";
 import OAuth2RedirectHandler from "./User/oauth2/OAuth2RedirectHandler";
 import {
   ACCESS_TOKEN,
@@ -84,6 +85,17 @@ class App extends Component {
               <Switch>
                 <Route path="/" exact component={Home} />
                 <Route path="/list" exact component={ProductList} />
+                <Route
+                  path="/products/:id/chatting"
+                  render={(props) => (
+                    <ProductChatting
+                      // authenticated={keycloak.authenticated}
+                      // currentUser={getUsername(keycloak)}
+                      // keycloak={keycloak}
+                      {...props}
+                    />
+                  )}
+                ></Route>
                 <Route
                   path="/products/:id"
                   render={(props) => (
