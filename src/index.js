@@ -3,14 +3,12 @@ import ReactDOM from "react-dom";
 import App from "./components/App";
 import "w3-css/3/w3.css";
 import { KeycloakProvider } from "react-keycloak";
-import Keycloak from "keycloak-js";
-import {
-  KEYCLOAK_AUTH_SERVER_URL,
-  KEYCLOAK_AUTH_REALM,
-  KEYCLOAK_AUTH_CLIENT_ID,
-} from "./Const.js";
 import keycloak from "./keyclock";
+// import keycloak from "./keyclock";
 
+ReactDOM.render(<App />, document.getElementById("root"));
+
+/*
 keycloak
   .init({
     onLoad: "check-sso",
@@ -20,17 +18,19 @@ keycloak
   .success((authenticated) => {
     if (!authenticated) {
       // window.location.reload();
-      console.info("Not Authenticated");
+      console.info("keycloak init, Not Authenticated");
     } else {
-      console.info("Authenticated");
+      console.info("keycloak init, Authenticated : ");
     }
     keycloak.authenticated && keycloak.loadUserInfo();
     //React Render on authentication
-    ReactDOM.render(<App />, document.getElementById("root"));
+    
 
     //store authentication tokens in sessionStorage for usage in app
+    sessionStorage.setItem("authenticated", authenticated);
     sessionStorage.setItem("authentication", keycloak.token);
     sessionStorage.setItem("refreshToken", keycloak.refreshToken);
+    sessionStorage.setItem("isAdminUser", keycloak.hasRealmRole("admin"));
 
     //to regenerate token on expiry
     setTimeout(() => {
@@ -59,3 +59,4 @@ keycloak
   .error(() => {
     console.error("Authenticated Failed");
   });
+*/

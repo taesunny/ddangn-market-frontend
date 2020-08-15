@@ -6,6 +6,7 @@ import Header from "../../layout/Header";
 import Alert from "react-s-alert";
 import { getDefaultAxiosJsonConfig } from "../../utils/APIUtils";
 import { APP_SERVER_API_BASE_URL } from "../../Const";
+import { withKeycloak } from "@react-keycloak/web";
 
 class AppPushRegistration extends Component {
   constructor(props) {
@@ -82,6 +83,13 @@ class AppPushRegistration extends Component {
   }
 
   render() {
+
+    const {keycloak, keycloakInitialized} = this.props;
+
+    if(!keycloakInitialized) {
+      return <h3>Loading ... !!!</h3>;
+    }
+    
     return (
       <div>
         <Header menuName="Register App Push" />
@@ -136,4 +144,4 @@ class AppPushRegistration extends Component {
   }
 }
 
-export default AppPushRegistration;
+export default withKeycloak(AppPushRegistration);

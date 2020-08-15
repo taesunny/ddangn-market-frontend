@@ -6,6 +6,7 @@ import Header from "../../layout/Header";
 import Alert from "react-s-alert";
 import { getDefaultAxiosFormDataConfig } from "../../utils/APIUtils";
 import { API_BASE_URL } from "../../Const";
+import { withKeycloak } from "@react-keycloak/web";
 
 class ProductRegistration extends Component {
   constructor(props) {
@@ -123,6 +124,13 @@ class ProductRegistration extends Component {
 
   render() {
     const { isLoading, categoryList } = this.state;
+
+    const {keycloak, keycloakInitialized} = this.props;
+
+    if(!keycloakInitialized) {
+      return <h3>Loading ... !!!</h3>;
+    }
+
     return (
       <div>
         <Header menuName="Register product" />
@@ -225,4 +233,4 @@ class ProductRegistration extends Component {
   }
 }
 
-export default ProductRegistration;
+export default withKeycloak(ProductRegistration);

@@ -1,14 +1,21 @@
 import React, { Component } from "react";
 import ddangnMarketLogo from "../img/ddangn-market-logo1.jpeg";
-import { handleLogOut, handleLogIn } from "../utils/CloakUtils";
-import keycloak from "../keyclock";
+import { withKeycloak } from "@react-keycloak/web";
 
 class Lnb extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false,
+      userEmail: "",
+    };
+  }
+
   componentDidMount() {
     // keycloak.loadUserProfile()
     // keycloak.authenticated && keycloak.loadUserInfo();
     // console.log("hasRole? : ", keycloak.hasRealmRole("admin"));
-    console.log("keycloak : ", keycloak);
+    // console.log("keycloak : ", keycloak);
   }
 
   render() {
@@ -24,6 +31,14 @@ class Lnb extends Component {
     const logoStyle = {
       width: "200px",
     };
+
+    const {keycloak, keycloakInitialized} = this.props
+
+    // console.log("lnb render : ", keycloak)
+
+    if(!keycloakInitialized) {
+      return <h3>Loading ... !!!</h3>;
+    }
 
     return (
       <nav
@@ -63,7 +78,7 @@ class Lnb extends Component {
               </a>
             </div>
           )}
-          {keycloak.authenticated && keycloak.hasRealmRole("admin") ? (
+          {keycloak.authenticated && keycloak.hasRealmRole("admin")? (
             <a href="/register-app-push" className="w3-bar-item w3-button">
               Register App Push
             </a>
@@ -100,4 +115,4 @@ class Lnb extends Component {
   }
 }
 
-export default Lnb;
+export default withKeycloak(Lnb);
