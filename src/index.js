@@ -2,8 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App";
 import "w3-css/3/w3.css";
+import { KeycloakProvider } from "react-keycloak";
 import keycloak from "./keyclock";
+// import keycloak from "./keyclock";
 
+ReactDOM.render(<App />, document.getElementById("root"));
+
+/*
 keycloak
   .init({
     onLoad: "check-sso",
@@ -19,7 +24,7 @@ keycloak
     }
     keycloak.authenticated && keycloak.loadUserInfo();
     //React Render on authentication
-    ReactDOM.render(<App />, document.getElementById("root"));
+    
 
     //store authentication tokens in sessionStorage for usage in app
     sessionStorage.setItem("authenticated", authenticated);
@@ -54,3 +59,4 @@ keycloak
   .error(() => {
     console.error("Authenticated Failed");
   });
+*/

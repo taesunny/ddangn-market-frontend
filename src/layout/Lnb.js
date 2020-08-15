@@ -1,8 +1,16 @@
 import React, { Component } from "react";
 import ddangnMarketLogo from "../img/ddangn-market-logo1.jpeg";
-import keycloak from "../keyclock";
+import { withKeycloak } from "@react-keycloak/web";
 
 class Lnb extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false,
+      userEmail: "",
+    };
+  }
+
   componentDidMount() {
     // keycloak.loadUserProfile()
     // keycloak.authenticated && keycloak.loadUserInfo();
@@ -23,6 +31,14 @@ class Lnb extends Component {
     const logoStyle = {
       width: "200px",
     };
+
+    const {keycloak, keycloakInitialized} = this.props
+
+    // console.log("lnb render : ", keycloak)
+
+    if(!keycloakInitialized) {
+      return <h3>Loading ... !!!</h3>;
+    }
 
     return (
       <nav
@@ -48,7 +64,7 @@ class Lnb extends Component {
           <a href="/list" className="w3-bar-item w3-button">
             Product List
           </a>
-          {sessionStorage.getItem("authenticated") === true ? (
+          {keycloak.authenticated ? (
             <a href="/register" className="w3-bar-item w3-button">
               Register product
             </a>
@@ -62,7 +78,7 @@ class Lnb extends Component {
               </a>
             </div>
           )}
-          {sessionStorage.getItem("authenticated") === true  && sessionStorage.getItem("isAdminUser") === true  ? (
+          {keycloak.authenticated && keycloak.hasRealmRole("admin")? (
             <a href="/register-app-push" className="w3-bar-item w3-button">
               Register App Push
             </a>
@@ -99,4 +115,4 @@ class Lnb extends Component {
   }
 }
 
-export default Lnb;
+export default withKeycloak(Lnb);

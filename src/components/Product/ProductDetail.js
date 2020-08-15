@@ -8,7 +8,7 @@ import Alert from "react-s-alert";
 import { getDefaultAxiosJsonConfig } from "../../utils/APIUtils";
 import { API_BASE_URL } from "../../Const";
 import { Link } from "react-router-dom";
-import keycloak from "../../keyclock";
+import { withKeycloak } from "@react-keycloak/web";
 
 class ProductDetail extends Component {
   constructor(props) {
@@ -19,6 +19,7 @@ class ProductDetail extends Component {
       product: [],
       deleteSuccess: false,
       isSelling: true,
+      isregistrant: false,
     };
 
     this.deleteProduct = this.deleteProduct.bind(this);
@@ -116,7 +117,6 @@ class ProductDetail extends Component {
   };
 
   componentDidMount() {
-    console.log("keycloak on detail : ", keycloak);
     this.getProduct();
   }
 
@@ -139,8 +139,15 @@ class ProductDetail extends Component {
       marginRight: "10px",
     };
 
+    const { keycloak, keycloakInitialized } = this.props;
+
     console.log("product : ", product);
+    console.log("keycloak : ", keycloak);
     console.log("this.props : ", this.props);
+
+    if(!keycloakInitialized) {
+      return <h3>Loading ... !!!</h3>;
+    }
 
     return (
       <div>
@@ -152,13 +159,7 @@ class ProductDetail extends Component {
               className="w3-button w3-dark-grey w3-padding-large w3-margin-top w3-margin-bottom"
               style={buttonStyle}
               onClick={() => this.updateProductToSoldOut()}
-              disabled={
-                keycloak.authenticated &&
-                keycloak.userInfo &&
-                keycloak.subject === product.userId
-                  ? false
-                  : true
-              }
+              disabled={(keycloak && keycloak.subject) === product.userId ? false : true}
             >
               <i className="fa fa-download"></i>판매 완료 표시하기
             </button>
@@ -175,13 +176,7 @@ class ProductDetail extends Component {
           <button
             className="w3-button w3-dark-grey w3-padding-large w3-margin-top w3-margin-bottom"
             onClick={() => this.deleteProduct()}
-            disabled={
-              keycloak.authenticated &&
-              keycloak.userInfo &&
-              keycloak.subject === product.userId
-                ? false
-                : true
-            }
+            disabled={(keycloak && keycloak.subject) === product.userId ? false : true}
           >
             <i className="fa fa-download"></i>Delete Product
           </button>
@@ -231,7 +226,9 @@ class ProductDetail extends Component {
                 className="w3-button w3-black w3-margin-bottom"
                 disabled={keycloak.authenticated ? false : true}
               >
-                <i className="fa fa-paper-plane w3-margin-center">Go to Chatting</i>
+                <i className="fa fa-paper-plane w3-margin-center">
+                  Go to Chatting
+                </i>
               </button>
             </Link>
           </div>
@@ -241,4 +238,4 @@ class ProductDetail extends Component {
   }
 }
 
-export default ProductDetail;
+export default withKeycloak(ProductDetail);

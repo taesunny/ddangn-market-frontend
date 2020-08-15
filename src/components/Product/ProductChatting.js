@@ -4,7 +4,6 @@ import Header from "../../layout/Header";
 import { API_BASE_URL } from "../../Const";
 import { TalkBox } from "react-talk";
 import SockJsClient from "react-stomp";
-import keycloak from "../../keyclock";
 import {
   CHATTING_SERVER_BASE_URL,
   CHATTING_SERVER_WEB_SOCKET_URL,
@@ -12,6 +11,7 @@ import {
 import Alert from "react-s-alert";
 import { getDefaultAxiosJsonConfig, getDefaultHeaderWithAuthorization } from "../../utils/APIUtils";
 import { Redirect } from "react-router-dom";
+import { withKeycloak } from "@react-keycloak/web";
 
 class ProductChatting extends React.Component {
   state = {
@@ -25,8 +25,7 @@ class ProductChatting extends React.Component {
   getChattingHistory = async () => {
     const { id } = this.props.match.params;
     const { data: messages } = await axios.get(
-      `${CHATTING_SERVER_BASE_URL}/products/${id}/history`,
-      getDefaultAxiosJsonConfig()
+      `${CHATTING_SERVER_BASE_URL}/products/${id}/history`
     );
 
     // console.log("return: ", products);
@@ -36,8 +35,9 @@ class ProductChatting extends React.Component {
 
   sendMessage = (msg, selfMsg) => {
     const { id } = this.props.match.params;
+    const {keycloak} = this.props;
 
-    if(keycloak.authenticated) {
+    if(!(keycloak && keycloak.authenticated)) {
         Alert.error("다시 로그인 해주세요.", {
           timeout: 5000,
         });
@@ -54,7 +54,7 @@ class ProductChatting extends React.Component {
       var send_message = {
         productId: id,
         author: keycloak.subject,
-        // authorId: keycloak.subject,
+        authorId: keycloak.subject,
         messageType: "TALK",
         message: selfMsg.message,
       };
@@ -89,14 +89,18 @@ class ProductChatting extends React.Component {
   componentDidMount() {
     this.getChattingHistory();
     this.getProduct();
-
-    console.log("Lnb : ", keycloak);
   }
 
   render() {
     // console.log("product List : ", productList);
     const { id } = this.props.match.params;
     var TOPIC_SUB_URL = `/sub/chat/product/${id}`;
+    const {keycloak, keycloakInitialized} = this.props;
+    console.log("chatting.keycloak", keycloak)
+
+    if(!keycloakInitialized) {
+      return <h3>Loading ... !!!</h3>;
+    }
 
     return (
       <div>
@@ -107,13 +111,9 @@ class ProductChatting extends React.Component {
               <TalkBox
                 topic={"'Hi' 문자를 입력 후 enter를 눌러 시작하세요!"}
                 currentUserId={
-                  keycloak.authenticated &&
-                  keycloak.userInfo &&
                   keycloak.subject
                 }
                 currentUser={
-                  keycloak.authenticated &&
-                  keycloak.userInfo &&
                   keycloak.subject
                 }
                 messages={this.state.messages}
@@ -147,4 +147,4 @@ class ProductChatting extends React.Component {
   }
 }
 
-export default ProductChatting;
+export default withKeycloak(ProductChatting);
