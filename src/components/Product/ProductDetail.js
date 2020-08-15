@@ -6,7 +6,6 @@ import { Redirect } from "react-router-dom";
 import Moment from "react-moment";
 import Alert from "react-s-alert";
 import { getDefaultAxiosJsonConfig } from "../../utils/APIUtils";
-import Axios from "axios";
 import { API_BASE_URL } from "../../Const";
 import { Link } from "react-router-dom";
 import keycloak from "../../keyclock";
@@ -117,6 +116,7 @@ class ProductDetail extends Component {
   };
 
   componentDidMount() {
+    console.log("keycloak on detail : ", keycloak);
     this.getProduct();
   }
 

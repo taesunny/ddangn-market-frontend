@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN, API_BASE_URL } from "../Const";
+import { ACCESS_TOKEN } from "../Const";
 import keycloak from "../keyclock";
 
 const request = (options) => {
@@ -34,6 +34,7 @@ export function getDefaultAxiosJsonConfig() {
     },
   };
 
+  console.log("getDefaultAxiosJsonConfig, keyclock : ", keycloak)
   // if (localStorage.getItem(ACCESS_TOKEN)) {
   if (keycloak && keycloak.token) {
     config.headers["Authorization"] = "Bearer " + keycloak.token;

@@ -7,23 +7,10 @@ import ProductRegistration from "./Product/ProductRegistration";
 import ProductDetail from "./Product/ProductDetail";
 import ProductList from "./Product/ProductList";
 import ProductChatting from "./Product/ProductChatting";
-import OAuth2RedirectHandler from "./User/oauth2/OAuth2RedirectHandler";
-import {
-  ACCESS_TOKEN,
-  KEYCLOAK_AUTH_SERVER_URL,
-  KEYCLOAK_AUTH_REALM,
-  KEYCLOAK_AUTH_CLIENT_ID,
-} from "../Const";
 import "react-s-alert/dist/s-alert-default.css";
 import "react-s-alert/dist/s-alert-css-effects/slide.css";
 import Alert from "react-s-alert";
-import { getCurrentUser } from "../utils/APIUtils";
 import LoadingIndicator from "../layout/LoadingIndicator";
-import Profile from "./User/profile/Profile";
-import PrivateRoute from "./PrivateRoute";
-import { getUsername } from "../utils/CloakUtils";
-import { KeycloakProvider } from "@react-keycloak/web";
-import keycloak from "../keyclock";
 import AppPushRegistration from "./Notification/AppPushRegistration";
 
 class App extends Component {

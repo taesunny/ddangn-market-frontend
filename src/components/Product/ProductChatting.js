@@ -1,8 +1,6 @@
 import React from "react";
 import axios from "axios";
-import ProductListItem from "./ProductListItem";
 import Header from "../../layout/Header";
-import Loading from "../../layout/Loading";
 import { API_BASE_URL } from "../../Const";
 import { TalkBox } from "react-talk";
 import SockJsClient from "react-stomp";
@@ -11,7 +9,9 @@ import {
   CHATTING_SERVER_BASE_URL,
   CHATTING_SERVER_WEB_SOCKET_URL,
 } from "../../ChattingConst";
+import Alert from "react-s-alert";
 import { getDefaultAxiosJsonConfig, getDefaultHeaderWithAuthorization } from "../../utils/APIUtils";
+import { Redirect } from "react-router-dom";
 
 class ProductChatting extends React.Component {
   state = {
@@ -37,9 +37,24 @@ class ProductChatting extends React.Component {
   sendMessage = (msg, selfMsg) => {
     const { id } = this.props.match.params;
 
+    if(keycloak.authenticated) {
+        Alert.error("다시 로그인 해주세요.", {
+          timeout: 5000,
+        });
+
+        return <Redirect
+        to={{
+          pathname: "/",
+          state: { from: this.props.location },
+        }}
+      />;
+      }
+
     try {
       var send_message = {
         productId: id,
+        author: keycloak.subject,
+        // authorId: keycloak.subject,
         messageType: "TALK",
         message: selfMsg.message,
       };

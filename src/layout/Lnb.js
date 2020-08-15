@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ddangnMarketLogo from "../img/ddangn-market-logo1.jpeg";
-import { handleLogOut, handleLogIn } from "../utils/CloakUtils";
 import keycloak from "../keyclock";
 
 class Lnb extends Component {
@@ -8,7 +7,7 @@ class Lnb extends Component {
     // keycloak.loadUserProfile()
     // keycloak.authenticated && keycloak.loadUserInfo();
     // console.log("hasRole? : ", keycloak.hasRealmRole("admin"));
-    console.log("keycloak : ", keycloak);
+    // console.log("keycloak : ", keycloak);
   }
 
   render() {
@@ -49,7 +48,7 @@ class Lnb extends Component {
           <a href="/list" className="w3-bar-item w3-button">
             Product List
           </a>
-          {keycloak.authenticated ? (
+          {sessionStorage.getItem("authenticated") === true ? (
             <a href="/register" className="w3-bar-item w3-button">
               Register product
             </a>
@@ -63,7 +62,7 @@ class Lnb extends Component {
               </a>
             </div>
           )}
-          {keycloak.authenticated && keycloak.hasRealmRole("admin") ? (
+          {sessionStorage.getItem("authenticated") === true  && sessionStorage.getItem("isAdminUser") === true  ? (
             <a href="/register-app-push" className="w3-bar-item w3-button">
               Register App Push
             </a>
