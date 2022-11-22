@@ -17,7 +17,7 @@
     "react-moment": "^0.9.7",
     "react-router-dom": "^5.2.0",
     "react-s-alert": "^1.4.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "5.0.1",
     "react-stomp": "^5.0.0",
     "react-talk": "^1.0.0",
     "w3-css": "^4.1.0"
